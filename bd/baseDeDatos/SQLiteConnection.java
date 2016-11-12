@@ -27,12 +27,13 @@ public class SQLiteConnection {
 		}
 	}
 	
-	public int login(String usuario, String password){
+	public int login(String usuario, String password) {
+		PreparedStatement pst = null;		
 		try{
-			String query = "select * from UsuarioData where nombre = ? and password = ?";
-			PreparedStatement pst= conn.prepareStatement(query); 
-			pst.setString(0, usuario); //0 es el primer ? que pongo en la query
-			pst.setString(1, password); //0 es el primer ? que pongo en la query
+			String query = "select * from Usuario where nombre = ? and password = ?";
+			pst= conn.prepareStatement(query); 
+			pst.setString(1, usuario); //0 es el primer ? que pongo en la query
+			pst.setString(2, password); //0 es el primer ? que pongo en la query
 			
 			ResultSet rs = pst.executeQuery();
 			int count = 0;
@@ -40,14 +41,47 @@ public class SQLiteConnection {
 				count++;
 			}
 			if (count == 1){
-				return 0;
+				return CodigoPeticion.LOGEO_CORRECTO;
 			}
 			else {
-				 return 1;
+				 return CodigoPeticion.LOGEO_INCORRECTO;
 			}
-		}catch(	Exception e)
+		}catch(SQLException sqle)
 		{
-			return CodigoPeticion.LOGEO_INCORRECTO;
+			sqle.printStackTrace();
 		}
+		finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return CodigoPeticion.LOGEO_INCORRECTO;
+	}
+	
+	public boolean agregarJugador(String usuario, String password, String mail){
+		PreparedStatement pst = null;
+		try{
+			String query = "insert into Usuario (nombre, mail, password) values (?,?,?)";
+			pst= conn.prepareStatement(query); 
+			pst.setString(1, usuario); //1 es el primer ? que pongo en la query
+			pst.setString(2, mail);
+			pst.setString(3, password);
+			
+			pst.executeQuery();
+			return true;
+		}catch(SQLException sqle)
+		{
+			sqle.printStackTrace();
+		}
+		finally {
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
 	}
 }
