@@ -12,6 +12,7 @@ public class PeticionLogueo {
 			   password = datosPeticion[2];
 		this.serverTh = serverTh;
 		int codigoPeticion = existeUsuario(usuario, password); 
+		
 		switch (codigoPeticion) {
 		case CodigoPeticion.LOGEO_CORRECTO_ADMIN:
 			UsuarioSocket aux = new UsuarioSocket(serverTh.getcSocket());
@@ -33,7 +34,7 @@ public class PeticionLogueo {
 	}
 
 	private int existeUsuario(String usuario, String password) {
-		return 1;// serverTh.getServer().getConexionBD().login(usuario, password);
+		return serverTh.getServer().getConexionBD().login(usuario, password);
 	}
 
 	public String getRespuesta() {
