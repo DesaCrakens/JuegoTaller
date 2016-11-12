@@ -7,6 +7,7 @@ import java.net.Socket;
 
 import peticiones.CodigoPeticion;
 import peticiones.Peticion;
+import pojo.POJOLogin;
 
 
 public class Cliente extends Thread{
@@ -63,26 +64,26 @@ public class Cliente extends Thread{
 
 	public int loguearse(String nombre, String pass) {
 		try {
-			/*POJOLogin login = new POJOLogin(nombre, pass);
+			POJOLogin login = new POJOLogin(nombre, pass);
 			out.writeUTF(login.getDatosEnviable());
 			sleep(1000);	
 			login.setRespuesta(respuestaServer);			
 			int codigoRespuesta = Integer.parseInt(login.getRespuesta());
 			//System.out.println(codigoRespuesta+" "+CodigoPeticion.LOGEO_CORRECTO);
 			switch (codigoRespuesta) {
-			case CodigoPeticion.LOGEO_CORRECTO_ADMIN:
+			/*case CodigoPeticion.LOGEO_CORRECTO_ADMIN:
 				this.nombreUsuario = nombre;
 				this.tipoDeCuenta = CodigoPeticion.LOGEO_CORRECTO_ADMIN;
 				return CodigoPeticion.LOGEO_CORRECTO_ADMIN;
-
-			case CodigoPeticion.LOGEO_CORRECTO_USUARIO:
+*/
+			case CodigoPeticion.LOGEO_CORRECTO:
 				this.nombreUsuario = nombre;
-				this.tipoDeCuenta = CodigoPeticion.LOGEO_CORRECTO_USUARIO;
-				return CodigoPeticion.LOGEO_CORRECTO_USUARIO;
+				//this.tipoDeCuenta = CodigoPeticion.LOGEO_CORRECTO;
+				return CodigoPeticion.LOGEO_CORRECTO;
 				
 			default:
 				break;
-			}*/
+			}
 			
 		} catch (Exception e) {
 			System.out.println("Error logueo");
