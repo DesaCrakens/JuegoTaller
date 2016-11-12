@@ -109,7 +109,7 @@ public class CrearUsuario extends JFrame {
 		contentPane.add(lblConfirmarContrasea);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon("C:\\Users\\javi\\workspace\\JuegoTaller\\src\\interfaces\\pergamino,banners,clipart,scrap,png,vintage (9).png"));
+		label.setIcon(new ImageIcon(".\\src\\interfaces\\pergamino,banners,clipart,scrap,png,vintage (9).png"));
 		label.setBounds(0, 0, 434, 262);
 		contentPane.add(label);
 	}
