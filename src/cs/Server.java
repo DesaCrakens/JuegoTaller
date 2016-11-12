@@ -1,21 +1,26 @@
 package cs;
-
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.Connection;
 import java.util.ArrayList;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import baseDeDatos.SQLiteConnection;
+import partidaZR.Partida;
+import pojo.POJOPartidaSinTablero;
+import conexionBD.ConexionBD;
 
 public class Server {
 	static int PUERTO_POR_DEFECTO = 5000;
 	private ArrayList<UsuarioSocket> listaSocketsUsuarios;
-	private Connection conexionBD;
-	
+	private ConexionBD conexionBD;
+	private ArrayList<POJOPartidaSinTablero> pojoPartidasEnLinea;	
 	private JTextArea txtLog;
+	private ArrayList<Partida> partidas;
+	
+	public ArrayList<Partida> getPartidas() {
+		return partidas;
+	}
 
 	public JTextArea getTxtLog() {
 		return txtLog;
@@ -25,19 +30,23 @@ public class Server {
 		return listaSocketsUsuarios;
 	}
 	
-	public Connection getConexionBD() {
+	public ConexionBD getConexionBD() {
 		return conexionBD;
+	}
+
+	public ArrayList<POJOPartidaSinTablero> getPojoPartidasEnLinea() {
+		return pojoPartidasEnLinea;
 	}
 
 	public Server(JTextField txtPuerto, JTextArea txtLog) {
 		this.txtLog = txtLog;
 		PUERTO_POR_DEFECTO = Integer.parseInt(txtPuerto.getText());
-		conexionBD = SQLiteConnection.dbConnector();
-		
+		conexionBD = new ConexionBD(txtLog);
+		pojoPartidasEnLinea = conexionBD.listarPartidasAlServer();
 		listaSocketsUsuarios = new ArrayList<UsuarioSocket>();
-		
+		partidas = new ArrayList<Partida>();
 		try {
-
+			construirPartidasEnBaseAPOJOPartidas();
 			ServerSocket svSocket = new ServerSocket(PUERTO_POR_DEFECTO);
 			// Escuchar a clientes de forma constante
 			while(true) {
@@ -58,7 +67,12 @@ public class Server {
 		}
 	}
 	
-
+	private void construirPartidasEnBaseAPOJOPartidas() {
+		for (POJOPartidaSinTablero partidaVacia : pojoPartidasEnLinea) {
+			Partida p = new Partida(partidaVacia);
+			partidas.add(p);
+		}
+	}
 
 	private void mostrarUsuariosConectados() {
 		escribirLog("-------------------Usuarios------------------------");
@@ -73,6 +87,7 @@ public class Server {
 		this.txtLog.append(cadena+"\n");
 	}
 	
-
+	public void actualizarPartidas() {
+		pojoPartidasEnLinea = conexionBD.listarPartidasAlServer();
+	}
 }
-
