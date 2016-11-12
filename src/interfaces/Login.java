@@ -18,7 +18,7 @@ import javax.swing.ImageIcon;
 public class Login extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField usuarioField;
 	private JPasswordField passwordField;
 
 	/**
@@ -58,10 +58,10 @@ public class Login extends JFrame {
 		lblNewLabel.setBounds(42, 89, 72, 14);
 		contentPane.add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(136, 88, 151, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		usuarioField = new JTextField();
+		usuarioField.setBounds(136, 88, 151, 20);
+		contentPane.add(usuarioField);
+		usuarioField.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Contrase\u00F1a");
 		lblNewLabel_2.setForeground(new Color(255, 255, 0));
@@ -70,26 +70,26 @@ public class Login extends JFrame {
 		lblNewLabel_2.setBounds(32, 143, 94, 14);
 		contentPane.add(lblNewLabel_2);
 		
-		JButton btnNewButton = new JButton("Iniciar Sesi\u00F3n");
-		btnNewButton.setFont(new Font("Harrington", Font.PLAIN, 13));
-		btnNewButton.setBackground(Color.WHITE);
-		btnNewButton.setForeground(Color.BLUE);
-		btnNewButton.setBounds(159, 185, 111, 23);
-		contentPane.add(btnNewButton);
+		JButton btnIniciaSesion = new JButton("Iniciar Sesi\u00F3n");
+		btnIniciaSesion.setFont(new Font("Harrington", Font.PLAIN, 13));
+		btnIniciaSesion.setBackground(Color.WHITE);
+		btnIniciaSesion.setForeground(Color.BLUE);
+		btnIniciaSesion.setBounds(159, 185, 111, 23);
+		contentPane.add(btnIniciaSesion);
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(136, 142, 151, 20);
 		contentPane.add(passwordField);
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		btnNewButton_1.setFont(new Font("Harrington", Font.PLAIN, 13));
-		btnNewButton_1.setForeground(Color.BLUE);
-		btnNewButton_1.setBackground(Color.WHITE);
-		btnNewButton_1.setBounds(159, 219, 111, 23);
-		contentPane.add(btnNewButton_1);
+		JButton btnCreaUsuario = new JButton("Crear Usuario");
+		btnCreaUsuario.setFont(new Font("Harrington", Font.PLAIN, 13));
+		btnCreaUsuario.setForeground(Color.BLUE);
+		btnCreaUsuario.setBackground(Color.WHITE);
+		btnCreaUsuario.setBounds(159, 219, 111, 23);
+		contentPane.add(btnCreaUsuario);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon("C:\\Users\\javi\\workspace\\JuegoTaller\\src\\interfaces\\The Lord of Souls title1.jpg"));
+		label.setIcon(new ImageIcon(Login.class.getResource("/interfaces/The Lord of Souls title1.jpg")));
 		label.setBounds(0, 0, 434, 262);
 		contentPane.add(label);
 	}

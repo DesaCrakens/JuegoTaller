@@ -38,7 +38,7 @@ public class CreacionDePersonaje extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField nombrePersonajeField;
 	private final JLabel lblNewLabel_1 = new JLabel("");
 	private JLabel lblNewLabel;
 	private JComboBox seleccionaRaza;
@@ -84,12 +84,12 @@ public class CreacionDePersonaje extends JFrame {
 		lblNewLabel.setToolTipText("hola");
 		contentPane.add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setForeground(Color.RED);
-		textField.setFont(new Font("Harrington", Font.BOLD, 15));
-		textField.setBounds(160, 110, 186, 23);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		nombrePersonajeField = new JTextField();
+		nombrePersonajeField.setForeground(Color.RED);
+		nombrePersonajeField.setFont(new Font("Harrington", Font.BOLD, 15));
+		nombrePersonajeField.setBounds(160, 110, 186, 23);
+		contentPane.add(nombrePersonajeField);
+		nombrePersonajeField.setColumns(10);
 		
 		seleccionaRaza = new JComboBox();
 		seleccionaRaza.setBackground(Color.WHITE);
@@ -156,7 +156,7 @@ public class CreacionDePersonaje extends JFrame {
 				case "Orco":
 				{
 					p=new Orco();	
-					p.setNombrePersonaje(textField.getText());
+					p.setNombrePersonaje(nombrePersonajeField.getText());
 					
 					switch ((cadena=String.valueOf(casta))) {
 						
@@ -220,7 +220,7 @@ public class CreacionDePersonaje extends JFrame {
 				case "Humano":
 				{
 					p=new Humano();
-					p.setNombrePersonaje(textField.getText());
+					p.setNombrePersonaje(nombrePersonajeField.getText());
 					switch ((cadena=String.valueOf(casta))) {
 					
 					case "Hechicero":
@@ -282,7 +282,7 @@ public class CreacionDePersonaje extends JFrame {
 				case "Elfo":
 				{
 					p=new Elfo();
-					p.setNombrePersonaje(textField.getText());
+					p.setNombrePersonaje(nombrePersonajeField.getText());
 					
 					switch ((cadena=String.valueOf(casta))) {
 					
@@ -366,7 +366,7 @@ public class CreacionDePersonaje extends JFrame {
 		lblCreaTuPersonaje.setBounds(108, 32, 226, 30);
 		contentPane.add(lblCreaTuPersonaje);
 		lblNewLabel_1.setBackground(Color.BLACK);
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\javi\\workspace\\JuegoTaller\\src\\interfaces\\pergamino,banners,clipart,scrap,png,vintage (9).png"));
+		lblNewLabel_1.setIcon(new ImageIcon(CreacionDePersonaje.class.getResource("/interfaces/pergamino.png")));
 		lblNewLabel_1.setBounds(0, 0, 434, 262);
 		contentPane.add(lblNewLabel_1);
 	}
