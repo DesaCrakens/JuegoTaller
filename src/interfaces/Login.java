@@ -1,6 +1,6 @@
 package interfaces;
 
-import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -18,7 +18,7 @@ import javax.swing.ImageIcon;
 public class Login extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField usuarioField;
+	private JTextField textField;
 	private JPasswordField passwordField;
 
 	/**
@@ -52,44 +52,44 @@ public class Login extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Usuario");
 		lblNewLabel.setBackground(Color.WHITE);
-		lblNewLabel.setForeground(new Color(255, 255, 0));
+		lblNewLabel.setForeground(new Color(128, 0, 0));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel.setFont(new Font("Harrington", Font.BOLD | Font.ITALIC, 17));
-		lblNewLabel.setBounds(42, 89, 72, 14);
+		lblNewLabel.setFont(new Font("Harrington", Font.BOLD | Font.ITALIC, 20));
+		lblNewLabel.setBounds(32, 89, 82, 14);
 		contentPane.add(lblNewLabel);
 		
-		usuarioField = new JTextField();
-		usuarioField.setBounds(136, 88, 151, 20);
-		contentPane.add(usuarioField);
-		usuarioField.setColumns(10);
+		textField = new JTextField();
+		textField.setBounds(136, 88, 151, 20);
+		contentPane.add(textField);
+		textField.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Contrase\u00F1a");
-		lblNewLabel_2.setForeground(new Color(255, 255, 0));
-		lblNewLabel_2.setFont(new Font("Harrington", Font.BOLD, 17));
+		lblNewLabel_2.setForeground(new Color(128, 0, 0));
+		lblNewLabel_2.setFont(new Font("Harrington", Font.BOLD | Font.ITALIC, 20));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_2.setBounds(32, 143, 94, 14);
+		lblNewLabel_2.setBounds(10, 143, 116, 14);
 		contentPane.add(lblNewLabel_2);
 		
-		JButton btnIniciaSesion = new JButton("Iniciar Sesi\u00F3n");
-		btnIniciaSesion.setFont(new Font("Harrington", Font.PLAIN, 13));
-		btnIniciaSesion.setBackground(Color.WHITE);
-		btnIniciaSesion.setForeground(Color.BLUE);
-		btnIniciaSesion.setBounds(159, 185, 111, 23);
-		contentPane.add(btnIniciaSesion);
+		JButton btnNewButton = new JButton("Iniciar Sesi\u00F3n");
+		btnNewButton.setFont(new Font("Harrington", Font.PLAIN, 13));
+		btnNewButton.setBackground(Color.WHITE);
+		btnNewButton.setForeground(Color.BLUE);
+		btnNewButton.setBounds(159, 185, 115, 23);
+		contentPane.add(btnNewButton);
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(136, 142, 151, 20);
 		contentPane.add(passwordField);
 		
-		JButton btnCreaUsuario = new JButton("Crear Usuario");
-		btnCreaUsuario.setFont(new Font("Harrington", Font.PLAIN, 13));
-		btnCreaUsuario.setForeground(Color.BLUE);
-		btnCreaUsuario.setBackground(Color.WHITE);
-		btnCreaUsuario.setBounds(159, 219, 111, 23);
-		contentPane.add(btnCreaUsuario);
+		JButton btnNewButton_1 = new JButton("Crear Usuario");
+		btnNewButton_1.setFont(new Font("Harrington", Font.PLAIN, 13));
+		btnNewButton_1.setForeground(Color.BLUE);
+		btnNewButton_1.setBackground(Color.WHITE);
+		btnNewButton_1.setBounds(159, 219, 115, 23);
+		contentPane.add(btnNewButton_1);
 		
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(Login.class.getResource("/interfaces/The Lord of Souls title1.jpg")));
+		JLabel label = new JLabel(""); 
+		label.setIcon(new ImageIcon(Login.class.getResource("/interfaces/The Lord of Souls 3.png")));
 		label.setBounds(0, 0, 434, 262);
 		contentPane.add(label);
 	}

@@ -55,33 +55,33 @@ public class ElegirMapa extends JFrame {
 		
 		JLabel lblMapa = new JLabel("");
 		lblMapa.setFont(new Font("Harrington", Font.BOLD, 13));
-		lblMapa.setIcon(new ImageIcon(ElegirMapa.class.getResource("/interfaces/mapa1.png")));
+		lblMapa.setIcon(new ImageIcon(".\\src\\interfaces\\mapa1.png"));
 		lblMapa.setBounds(67, 43, 300, 150);
 		contentPane.add(lblMapa);
 		
-		JButton btnSeleccion = new JButton("Seleccionar");
-		btnSeleccion.setBackground(Color.WHITE);
-		btnSeleccion.setForeground(Color.BLUE);
-		btnSeleccion.setFont(new Font("Harrington", Font.PLAIN, 13));
-		btnSeleccion.setBounds(313, 228, 107, 23);
-		contentPane.add(btnSeleccion);
+		JButton btnNewButton = new JButton("Seleccionar");
+		btnNewButton.setBackground(Color.WHITE);
+		btnNewButton.setForeground(Color.BLUE);
+		btnNewButton.setFont(new Font("Harrington", Font.PLAIN, 13));
+		btnNewButton.setBounds(313, 228, 107, 23);
+		contentPane.add(btnNewButton);
 		
-		JButton btnDerecha = new JButton("-->");
-		btnDerecha.setEnabled(false);
-		btnDerecha.setBounds(242, 229, 61, 23);
-		contentPane.add(btnDerecha);
+		JButton btnNewButton_1 = new JButton("-->");
+		btnNewButton_1.setEnabled(false);
+		btnNewButton_1.setBounds(242, 229, 61, 23);
+		contentPane.add(btnNewButton_1);
 		
-		JButton btnIzquierda = new JButton("<--");
-		btnIzquierda.setEnabled(false);
-		btnIzquierda.setBounds(171, 229, 61, 23);
-		contentPane.add(btnIzquierda);
+		JButton button = new JButton("<--");
+		button.setEnabled(false);
+		button.setBounds(171, 229, 61, 23);
+		contentPane.add(button);
 		
 		JLabel lblMapa_1 = new JLabel("Mapa 1");
 		lblMapa_1.setForeground(Color.BLUE);
 		lblMapa_1.setFont(new Font("Harrington", Font.BOLD, 15));
 		lblMapa_1.setBounds(185, 204, 61, 14);
 		contentPane.add(lblMapa_1);
-		lblNewLabel.setIcon(new ImageIcon(ElegirMapa.class.getResource("/interfaces/pergamino.png")));
+		lblNewLabel.setIcon(new ImageIcon(".\\src\\interfaces\\pergamino.png"));
 		lblNewLabel.setBounds(0, 0, 434, 262);
 		contentPane.add(lblNewLabel);
 	}
