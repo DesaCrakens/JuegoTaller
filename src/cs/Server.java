@@ -2,22 +2,20 @@ package cs;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-
-import conexionBD.ConexionBD;
+import baseDeDatos.SQLiteConnection;
 
 public class Server {
 	static int PUERTO_POR_DEFECTO = 5000;
 	private ArrayList<UsuarioSocket> listaSocketsUsuarios;
-	private ConexionBD conexionBD;
+	private Connection conexionBD;
 	
 	private JTextArea txtLog;
-	
-
 
 	public JTextArea getTxtLog() {
 		return txtLog;
@@ -27,16 +25,14 @@ public class Server {
 		return listaSocketsUsuarios;
 	}
 	
-	public ConexionBD getConexionBD() {
+	public Connection getConexionBD() {
 		return conexionBD;
 	}
-
-
 
 	public Server(JTextField txtPuerto, JTextArea txtLog) {
 		this.txtLog = txtLog;
 		PUERTO_POR_DEFECTO = Integer.parseInt(txtPuerto.getText());
-		conexionBD = new ConexionBD(txtLog);
+		conexionBD = SQLiteConnection.dbConnector();
 		
 		listaSocketsUsuarios = new ArrayList<UsuarioSocket>();
 		
