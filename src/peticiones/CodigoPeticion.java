@@ -6,8 +6,7 @@ public class CodigoPeticion {
 
 		// Usuario: 0-99
 		public static final int LOGEO = 1;
-		public static final int LOGEO_CORRECTO_ADMIN = 9;
-		public static final int LOGEO_CORRECTO_USUARIO = 0;
+		public static final int LOGEO_CORRECTO = 0;
 		public static final int LOGEO_INCORRECTO = 13;
 
 		

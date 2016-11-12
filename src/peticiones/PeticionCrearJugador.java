@@ -10,10 +10,10 @@ public class PeticionCrearJugador {
 	}
 
 	public PeticionCrearJugador(String[] datosPeticion, ServerTh serverTh) {
-		String 	usuario = datosPeticion[1];
-		int 	minJ = Integer.parseInt(datosPeticion[2]),
-				maxJ = Integer.parseInt(datosPeticion[3]);
-		boolean resultado=serverTh.getServer().getConexionBD().agregarJugador(usuario, minJ, maxJ);
+		String 	usuario = datosPeticion[1], 
+				password = datosPeticion[2],
+				mail = datosPeticion[3];
+		boolean resultado=serverTh.getServer().getConexionBD().agregarJugador(usuario, password, mail);
 		if(resultado)
 			respuesta = CodigoPeticion.CREAR_JUGADOR_CORRECTO+"";
 		else

@@ -14,18 +14,19 @@ public class PeticionLogueo {
 		int codigoPeticion = existeUsuario(usuario, password); 
 		
 		switch (codigoPeticion) {
+		/*
 		case CodigoPeticion.LOGEO_CORRECTO_ADMIN:
 			UsuarioSocket aux = new UsuarioSocket(serverTh.getcSocket());
 			int pos = this.serverTh.getServer().getListaSocketsUsuarios().indexOf(aux);
 			serverTh.getServer().getListaSocketsUsuarios().get(pos).setNombre(usuario);
 			this.respuesta = CodigoPeticion.LOGEO_CORRECTO_ADMIN + "";
 			break;
-
-		case CodigoPeticion.LOGEO_CORRECTO_USUARIO:
+		*/
+		case CodigoPeticion.LOGEO_CORRECTO:
 			UsuarioSocket aux2 = new UsuarioSocket(serverTh.getcSocket());
 			int pos2 = this.serverTh.getServer().getListaSocketsUsuarios().indexOf(aux2);
 			serverTh.getServer().getListaSocketsUsuarios().get(pos2).setNombre(usuario);
-			this.respuesta = CodigoPeticion.LOGEO_CORRECTO_USUARIO + "";
+			this.respuesta = CodigoPeticion.LOGEO_CORRECTO + "";
 			break;
 		default:
 			this.respuesta = CodigoPeticion.LOGEO_INCORRECTO + "";
