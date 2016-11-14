@@ -1,20 +1,23 @@
 package cs;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 
+import java.net.UnknownHostException;
+
 import peticiones.CodigoPeticion;
-import peticiones.Peticion;
+import peticiones.PeticionLogueo;
 import pojo.POJOLogin;
 
 
-public class Cliente extends Thread{
+public class Cliente{
 	
 	private Socket s;
-	private DataInputStream in;
-	private DataOutputStream out;
+	private ObjectInputStream ois;
+	private ObjectOutputStream oos;
 	private static String respuestaServer;
 	private boolean estaConectado = false;
 	private String nombreUsuario;
@@ -24,13 +27,22 @@ public class Cliente extends Thread{
 	public Cliente(String host){	
 		try {
 			s = new Socket(host, Server.PUERTO_POR_DEFECTO);
-			in = new DataInputStream(s.getInputStream());
-			out = new DataOutputStream(s.getOutputStream());
-			estaConectado = true;
-
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (UnknownHostException e) {
+			System.out.println("Unknown host exception creando socket del lado cliente.");
+		} catch (IOException e) {
+			System.out.println("IOException creando socket del lado cliente");
 		}
+		try {
+			ois = new ObjectInputStream(s.getInputStream());
+		} catch (IOException e) {
+			System.out.println("IOException creando OIS en el cliente");
+		}
+		try {
+			oos = new ObjectOutputStream(s.getOutputStream());
+		} catch (IOException e) {
+			System.out.println("IOException creando OOS en el cliente");
+		}
+		estaConectado = true;
 	}
 	
 	public boolean isEstaConectado() {
@@ -40,55 +52,25 @@ public class Cliente extends Thread{
 	public String getNombre() {
 		return this.nombreUsuario;
 	}	
-
-	
-	@Override
-	public void run() {
-		try {
-			while(true) {
-				respuestaServer = in.readUTF();
-				System.out.println("SERVER: "+respuestaServer);
-
-			}
-		} catch (Exception e) {
-			try {
-				in.close();
-				out.close();
-				s.close();
-			} catch (Exception e2) {
-			}
-			e.printStackTrace();
-		}
-	}
 	
 
 	public int loguearse(String nombre, String pass) {
 		try {
-			POJOLogin login = new POJOLogin(nombre, pass);
-			out.writeUTF(login.getDatosEnviable());
-			sleep(1000);	
-			login.setRespuesta(respuestaServer);			
-			int codigoRespuesta = Integer.parseInt(login.getRespuesta());
-			//System.out.println(codigoRespuesta+" "+CodigoPeticion.LOGEO_CORRECTO);
-			switch (codigoRespuesta) {
-			/*case CodigoPeticion.LOGEO_CORRECTO_ADMIN:
-				this.nombreUsuario = nombre;
-				this.tipoDeCuenta = CodigoPeticion.LOGEO_CORRECTO_ADMIN;
-				return CodigoPeticion.LOGEO_CORRECTO_ADMIN;
-*/
-			case CodigoPeticion.LOGEO_CORRECTO:
-				this.nombreUsuario = nombre;
-				//this.tipoDeCuenta = CodigoPeticion.LOGEO_CORRECTO;
-				return CodigoPeticion.LOGEO_CORRECTO;
-				
-			default:
-				break;
-			}
-			
-		} catch (Exception e) {
-			System.out.println("Error logueo");
+			PeticionLogueo petLog = new PeticionLogueo(nombre, pass);
+			oos.writeObject(new Mensaje(CodigoPeticion.LOGEO,petLog));		//manda mje de login
+			oos.flush();
+		} catch (IOException e1) {
+			System.out.println("Error en el login al enviar petición por IOException");
 		}
-		return CodigoPeticion.LOGEO_INCORRECTO;
+		try {
+			Mensaje respuestaSv = (Mensaje) ois.readObject();
+			return respuestaSv.getCodigo();
+		} catch (ClassNotFoundException e) {
+			System.out.println("Error en el login al recibir respuesta por ClassNotFound");
+		} catch (IOException e) {
+			System.out.println("Error en el login al recibir respuesta por IOException");
+		}
+		return 1234;
 	}
 	
 
@@ -101,7 +83,6 @@ public class Cliente extends Thread{
 			
 		}
 	}
-		
-
+	
 }
 	

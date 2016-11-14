@@ -1,44 +1,24 @@
 package peticiones;
 
+import java.io.Serializable;
+
 import cs.*;
 
-public class PeticionLogueo {
+public class PeticionLogueo implements Serializable{
 	
-	private String respuesta;
-	private ServerTh serverTh;
+	private String usuario,
+					password;
 	
-	public PeticionLogueo(String[] datosPeticion, ServerTh serverTh) {
-		String usuario = datosPeticion[1],
-			   password = datosPeticion[2];
-		this.serverTh = serverTh;
-		int codigoPeticion = existeUsuario(usuario, password); 
-		
-		switch (codigoPeticion) {
-		/*
-		case CodigoPeticion.LOGEO_CORRECTO_ADMIN:
-			UsuarioSocket aux = new UsuarioSocket(serverTh.getcSocket());
-			int pos = this.serverTh.getServer().getListaSocketsUsuarios().indexOf(aux);
-			serverTh.getServer().getListaSocketsUsuarios().get(pos).setNombre(usuario);
-			this.respuesta = CodigoPeticion.LOGEO_CORRECTO_ADMIN + "";
-			break;
-		*/
-		case CodigoPeticion.LOGEO_CORRECTO:
-			UsuarioSocket aux2 = new UsuarioSocket(serverTh.getcSocket());
-			int pos2 = this.serverTh.getServer().getListaSocketsUsuarios().indexOf(aux2);
-			serverTh.getServer().getListaSocketsUsuarios().get(pos2).setNombre(usuario);
-			this.respuesta = CodigoPeticion.LOGEO_CORRECTO + "";
-			break;
-		default:
-			this.respuesta = CodigoPeticion.LOGEO_INCORRECTO + "";
-			break;
-		}
+	public PeticionLogueo(String u, String p) {
+		this.usuario = u;
+		this.password = p;
 	}
-
-	private int existeUsuario(String usuario, String password) {
-		return serverTh.getServer().getConexionBD().login(usuario, password);
+	
+	public String getUsuario(){
+		return this.usuario;
 	}
-
-	public String getRespuesta() {
-		return respuesta;
+	
+	public String getPassword(){
+		return this.password;
 	}
 }

@@ -6,6 +6,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import cs.Cliente;
+import peticiones.CodigoPeticion;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -14,13 +18,16 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Login extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField usuarioField;
 	private JPasswordField passwordField;
-
+	private JLabel lblEstadoLogin;			//label extra para pruebas
+	
 	/**
 	 * Launch the application.
 	 */
@@ -58,10 +65,10 @@ public class Login extends JFrame {
 		lblNewLabel.setBounds(32, 89, 82, 14);
 		contentPane.add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(136, 88, 151, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		usuarioField = new JTextField();
+		usuarioField.setBounds(136, 88, 151, 20);
+		contentPane.add(usuarioField);
+		usuarioField.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Contrase\u00F1a");
 		lblNewLabel_2.setForeground(new Color(128, 0, 0));
@@ -70,28 +77,51 @@ public class Login extends JFrame {
 		lblNewLabel_2.setBounds(10, 143, 116, 14);
 		contentPane.add(lblNewLabel_2);
 		
-		JButton btnNewButton = new JButton("Iniciar Sesi\u00F3n");
-		btnNewButton.setFont(new Font("Harrington", Font.PLAIN, 13));
-		btnNewButton.setBackground(Color.WHITE);
-		btnNewButton.setForeground(Color.BLUE);
-		btnNewButton.setBounds(159, 185, 115, 23);
-		contentPane.add(btnNewButton);
+		JButton btnInicioSesion = new JButton("Iniciar Sesi\u00F3n");
+		btnInicioSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String usuario = usuarioField.getText(),
+						password = passwordField.getPassword().toString();
+				Cliente cliente = new Cliente("192.168.56.1");
+				if(cliente.loguearse(usuario, password) == CodigoPeticion.LOGEO_CORRECTO ) {
+					cambiarLblEstadoLogin(new String("CORRECTO"));								//si se logueó bien, muestra "CORRECTO" en el lbl de pruebas
+				}
+				else{
+					cambiarLblEstadoLogin(new String("INCORRECTO"));
+				}
+			}
+		});
+		btnInicioSesion.setFont(new Font("Harrington", Font.PLAIN, 13));
+		btnInicioSesion.setBackground(Color.WHITE);
+		btnInicioSesion.setForeground(Color.BLUE);
+		btnInicioSesion.setBounds(159, 185, 115, 23);
+		contentPane.add(btnInicioSesion);
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(136, 142, 151, 20);
 		contentPane.add(passwordField);
 		
-		JButton btnNewButton_1 = new JButton("Crear Usuario");
-		btnNewButton_1.setFont(new Font("Harrington", Font.PLAIN, 13));
-		btnNewButton_1.setForeground(Color.BLUE);
-		btnNewButton_1.setBackground(Color.WHITE);
-		btnNewButton_1.setBounds(159, 219, 115, 23);
-		contentPane.add(btnNewButton_1);
+		JButton btnNewUsuario = new JButton("Crear Usuario");
+		btnNewUsuario.setFont(new Font("Harrington", Font.PLAIN, 13));
+		btnNewUsuario.setForeground(Color.BLUE);
+		btnNewUsuario.setBackground(Color.WHITE);
+		btnNewUsuario.setBounds(159, 219, 115, 23);
+		contentPane.add(btnNewUsuario);
 		
-		JLabel label = new JLabel(""); 
-		label.setIcon(new ImageIcon(Login.class.getResource("/interfaces/The Lord of Souls 3.png")));
+		JLabel label =new JLabel(""); 
+		//label.setIcon(new ImageIcon(Login.class.getResource("/interfaces/The Lord of Souls 3.png")));
 		label.setBounds(0, 0, 434, 262);
 		contentPane.add(label);
+		
+		lblEstadoLogin = new JLabel("Estado Login");
+		lblEstadoLogin.setForeground(Color.YELLOW);
+		lblEstadoLogin.setBounds(309, 115, 56, 14);
+		contentPane.add(lblEstadoLogin);
+		
+	}
+	
+	private void cambiarLblEstadoLogin(String s){
+		this.lblEstadoLogin.setText(s);
 	}
 }
 
