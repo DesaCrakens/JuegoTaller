@@ -10,6 +10,7 @@ import java.net.UnknownHostException;
 
 import peticiones.CodigoPeticion;
 import peticiones.PeticionLogueo;
+import peticiones.PeticionRegistro;
 import pojo.POJOLogin;
 
 
@@ -54,9 +55,8 @@ public class Cliente{
 	}	
 	
 
-	public int loguearse(String nombre, String pass) {
+	public int loguearse(PeticionLogueo petLog) {
 		try {
-			PeticionLogueo petLog = new PeticionLogueo(nombre, pass);
 			oos.writeObject(new Mensaje(CodigoPeticion.LOGEO,petLog));		//manda mje de login
 			oos.flush();
 		} catch (IOException e1) {
@@ -70,9 +70,26 @@ public class Cliente{
 		} catch (IOException e) {
 			System.out.println("Error en el login al recibir respuesta por IOException");
 		}
-		return 1234;
+		return CodigoPeticion.LOGEO_INCORRECTO;
 	}
 	
+	public int registrarse(PeticionRegistro petReg) {
+		try {
+			oos.writeObject(new Mensaje(CodigoPeticion.REGISTRO,petReg));
+			oos.flush();
+		} catch (Exception e) {
+			System.out.println("Error en el registro al enviar petición por IOException");
+		}
+		try {
+			Mensaje respuestaSv = (Mensaje) ois.readObject();
+			return respuestaSv.getCodigo();
+		} catch (ClassNotFoundException e) {
+			System.out.println("Error en el registro al recibir respuesta por ClassNotFound");
+		} catch (IOException e) {
+			System.out.println("Error en el login al recibir respuesta por IOException");
+		}
+		return CodigoPeticion.REGISTRO_INCORRECTO;
+	}
 
 
 	public void crearJugador(String nombrePartida, int minJ, int maxJ) {

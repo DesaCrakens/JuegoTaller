@@ -9,15 +9,22 @@ import javax.swing.border.EmptyBorder;
 
 import cs.Cliente;
 import peticiones.CodigoPeticion;
+import peticiones.PeticionLogueo;
 
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.SwingConstants;
+
 import java.awt.Color;
+
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -26,7 +33,8 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField usuarioField;
 	private JPasswordField passwordField;
-	private JLabel lblEstadoLogin;			//label extra para pruebas
+	private Cliente cliente;
+	private JButton btnNewUsuario;
 	
 	/**
 	 * Launch the application.
@@ -48,6 +56,8 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		this.cliente = new Cliente("192.168.56.1");
+		
 		setTitle("Iniciar Sesi\u00F3n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -80,14 +90,14 @@ public class Login extends JFrame {
 		JButton btnInicioSesion = new JButton("Iniciar Sesi\u00F3n");
 		btnInicioSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String usuario = usuarioField.getText(),
-						password = passwordField.getPassword().toString();
-				Cliente cliente = new Cliente("192.168.56.1");
-				if(cliente.loguearse(usuario, password) == CodigoPeticion.LOGEO_CORRECTO ) {
-					cambiarLblEstadoLogin(new String("CORRECTO"));								//si se logueó bien, muestra "CORRECTO" en el lbl de pruebas
+				String usuario = usuarioField.getText();
+				char[] password = passwordField.getPassword();		//passwordField.getPassword() devuelve un arreglo de chars, después lo pasaremos a String
+				PeticionLogueo petLog = new PeticionLogueo(usuario, password);
+				if(cliente.loguearse(petLog) == CodigoPeticion.LOGEO_CORRECTO ) {
+					JOptionPane.showMessageDialog(null, "Login correcto.");
 				}
 				else{
-					cambiarLblEstadoLogin(new String("INCORRECTO"));
+					JOptionPane.showMessageDialog(null, "Login fallido.");	//contemplar luego que alguien quiera loguearse con una cuenta que ya se encuentra logueada
 				}
 			}
 		});
@@ -101,7 +111,15 @@ public class Login extends JFrame {
 		passwordField.setBounds(136, 142, 151, 20);
 		contentPane.add(passwordField);
 		
-		JButton btnNewUsuario = new JButton("Crear Usuario");
+		btnNewUsuario = new JButton("Crear Usuario");
+		btnNewUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Registro ventReg = new Registro(mandarRef());
+				ventReg.setVisible(true);
+				ventReg.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				toggleBtnNewUsuario();
+			}
+		});
 		btnNewUsuario.setFont(new Font("Harrington", Font.PLAIN, 13));
 		btnNewUsuario.setForeground(Color.BLUE);
 		btnNewUsuario.setBackground(Color.WHITE);
@@ -113,15 +131,22 @@ public class Login extends JFrame {
 		label.setBounds(0, 0, 434, 262);
 		contentPane.add(label);
 		
-		lblEstadoLogin = new JLabel("Estado Login");
-		lblEstadoLogin.setForeground(Color.YELLOW);
-		lblEstadoLogin.setBounds(309, 115, 56, 14);
-		contentPane.add(lblEstadoLogin);
-		
 	}
 	
-	private void cambiarLblEstadoLogin(String s){
-		this.lblEstadoLogin.setText(s);
+	
+	public Cliente getCliente(){
+		return this.cliente;
+	}
+	
+	private Login mandarRef(){
+		return this;
+	}
+	
+	public void toggleBtnNewUsuario(){
+		if(btnNewUsuario.isEnabled())
+			btnNewUsuario.setEnabled(false);
+		else
+			btnNewUsuario.setEnabled(true);
 	}
 }
 

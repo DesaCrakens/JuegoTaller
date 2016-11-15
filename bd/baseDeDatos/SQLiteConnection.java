@@ -36,11 +36,7 @@ public class SQLiteConnection {
 			pst.setString(2, password); //0 es el primer ? que pongo en la query
 			
 			ResultSet rs = pst.executeQuery();
-			int count = 0;
-			while(rs.next()){
-				count++;
-			}
-			if (count == 1){
+			if (rs.next()){
 				return CodigoPeticion.LOGEO_CORRECTO;
 			}
 			else {
@@ -60,17 +56,26 @@ public class SQLiteConnection {
 		return CodigoPeticion.LOGEO_INCORRECTO;
 	}
 	
-	public boolean agregarJugador(String usuario, String password, String mail){
+	public int registro(String usuario, String password, String mail){
 		PreparedStatement pst = null;
+		PreparedStatement pst2 = null;
 		try{
-			String query = "insert into Usuario (nombre, mail, password) values (?,?,?)";
+			String query = "select * from Usuario where nombre = ?";
 			pst= conn.prepareStatement(query); 
-			pst.setString(1, usuario); //1 es el primer ? que pongo en la query
-			pst.setString(2, mail);
-			pst.setString(3, password);
+			pst.setString(1, usuario);
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()){
+				return CodigoPeticion.REGISTRO_INCORRECTO_USER_YA_EXISTE;
+			}
 			
-			pst.executeQuery();
-			return true;
+			String query2 = "insert into Usuario (nombre, mail, password) values (?,?,?)";
+			pst2= conn.prepareStatement(query2); 
+			pst2.setString(1, usuario); //1 es el primer ? que pongo en la query
+			pst2.setString(2, mail);
+			pst2.setString(3, password);
+			
+			pst2.executeUpdate();		//notar que para hacer cambios en vez de consultas se usa executeUpdate()
+			return CodigoPeticion.REGISTRO_CORRECTO;
 		}catch(SQLException sqle)
 		{
 			sqle.printStackTrace();
@@ -82,6 +87,6 @@ public class SQLiteConnection {
 				e.printStackTrace();
 			}
 		}
-		return false;
+		return CodigoPeticion.REGISTRO_INCORRECTO;
 	}
 }

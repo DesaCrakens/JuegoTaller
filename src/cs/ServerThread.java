@@ -8,6 +8,7 @@ import java.net.Socket;
 
 import peticiones.CodigoPeticion;
 import peticiones.PeticionLogueo;
+import peticiones.PeticionRegistro;
 
 public class ServerThread extends Thread{
 	private Socket s;
@@ -47,9 +48,19 @@ public class ServerThread extends Thread{
 			case CodigoPeticion.LOGEO:
 				PeticionLogueo petLog = (PeticionLogueo) mjeIn.getObj();
 				try {
-					oos.writeObject(new Mensaje(sv.getConexionBD().login(petLog.getUsuario().toString(), petLog.getPassword().toString()),null));		//manda mje con el código que devuelva el intento de login en la BD
+					oos.writeObject(new Mensaje(sv.getConexionBD().login(petLog.getUsuario(), new String(petLog.getPassword())),null));		//manda mje con el código que devuelva el intento de login en la BD
 					oos.flush();
-					System.out.println("Mandó la respuesta eeeeeeeeee (después hay que borrar esto para que Lucas no nos golpee)");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+				
+			case CodigoPeticion.REGISTRO:
+				PeticionRegistro petReg = (PeticionRegistro) mjeIn.getObj();
+				try {
+					oos.writeObject(new Mensaje(sv.getConexionBD().registro(petReg.getUsuario(), new String(petReg.getPassword()), petReg.getEmail()),null));
+					oos.flush();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

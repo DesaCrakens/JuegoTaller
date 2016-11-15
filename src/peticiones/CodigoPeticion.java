@@ -9,9 +9,10 @@ public class CodigoPeticion {
 		public static final int LOGEO_CORRECTO = 11;
 
 		
-		public static final int CREAR_JUGADOR = 2;	
-		public static final int CREAR_JUGADOR_CORRECTO = 21;
-		public static final int CREAR_JUGADOR_INCORRECTO = 20;
+		public static final int REGISTRO = 2;	
+		public static final int REGISTRO_CORRECTO = 21;
+		public static final int REGISTRO_INCORRECTO_USER_YA_EXISTE = 200;
+		public static final int REGISTRO_INCORRECTO = 201;
 		
 		
 		public static final int PONER_EN_MAPA_JUGADOR = 3;

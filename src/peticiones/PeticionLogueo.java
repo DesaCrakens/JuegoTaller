@@ -6,10 +6,10 @@ import cs.*;
 
 public class PeticionLogueo implements Serializable{
 	
-	private String usuario,
-					password;
+	private String usuario;
+	private char[] password;
 	
-	public PeticionLogueo(String u, String p) {
+	public PeticionLogueo(String u, char[] p) {
 		this.usuario = u;
 		this.password = p;
 	}
@@ -18,7 +18,7 @@ public class PeticionLogueo implements Serializable{
 		return this.usuario;
 	}
 	
-	public String getPassword(){
+	public char[] getPassword(){
 		return this.password;
 	}
 }
