@@ -338,18 +338,14 @@ public class CreacionDePersonaje extends JFrame {
 					}
 					
 					}
-					
+			
 					break;
 				}
-				
 				}
-				
-				
 				/*
 				p.bonificacionDeCasta();
 				System.out.println(p.toString()); 
 				*/
-				
 			}
 				
 		});
@@ -366,7 +362,7 @@ public class CreacionDePersonaje extends JFrame {
 		lblCreaTuPersonaje.setBounds(108, 32, 226, 30);
 		contentPane.add(lblCreaTuPersonaje);
 		lblNewLabel_1.setBackground(Color.BLACK);
-		lblNewLabel_1.setIcon(new ImageIcon(".\\src\\interfaces\\pergamino.png"));
+		lblNewLabel_1.setIcon(new ImageIcon(CreacionDePersonaje.class.getResource("/interfaces/pergamino.png")));
 		lblNewLabel_1.setBounds(0, 0, 434, 262);
 		contentPane.add(lblNewLabel_1);
 	}
