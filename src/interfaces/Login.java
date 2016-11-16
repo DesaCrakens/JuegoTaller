@@ -56,7 +56,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
-		this.cliente = new Cliente("192.168.56.1");
+		this.cliente = new Cliente("192.168.1.34");
 		
 		setTitle("Iniciar Sesi\u00F3n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -127,6 +127,7 @@ public class Login extends JFrame {
 		contentPane.add(btnNewUsuario);
 		
 		JLabel label =new JLabel(""); 
+		label.setIcon(new ImageIcon(Login.class.getResource("/interfaces/The Lord of Souls 3.png")));
 		//label.setIcon(new ImageIcon(Login.class.getResource("/interfaces/The Lord of Souls 3.png")));
 		label.setBounds(0, 0, 434, 262);
 		contentPane.add(label);
